@@ -14,15 +14,37 @@ export class EditNinja extends Component {
     componentDidMount =()=>{
         const id = this.props.match.params.id;
         // console.log(id);
-        axios.put(`http://localhost:4000/api/ninjas/${id}`)
+        axios.get(`http://localhost:4000/api/ninjas/${id}`)
         .then(res=>{
             this.setState({
                 name: res.data.name,
                 rank: res.data.rank
-            })
-        })
+            });
+        
+        });
     }
 
+
+
+    Update = (e) =>{
+        e.preventDefault();
+
+        const studentObject = {
+            name: this.state.name,
+            rank: this.state.rank,
+            };
+
+        const id = this.props.match.params.id;
+        axios.put(`http://localhost:4000/api/ninjas/${id}`, studentObject)
+        .then(res=>{
+            console.log(res.data);
+            this.setState({
+                name: '',
+                rank: ''
+            });
+            this.props.history.push('/');
+        });
+    }
     render() {
         // const id = this.props.match.params.id;
         // console.log(id);
@@ -55,8 +77,8 @@ export class EditNinja extends Component {
 
                     <button
                     className="btn btn-primary"
-                    onClick={this.submit}
-                    >Edit Ninja</button>
+                    onClick={this.Update}
+                    >Update</button>
                     </form>
             </div>
         )

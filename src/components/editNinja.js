@@ -1,35 +1,34 @@
-import React, { Component } from 'react';
-import axios from 'axios';    
+import React, { Component } from 'react'
+import axios from 'axios';
 
-export class CreateNinja extends Component {
-
+export class EditNinja extends Component {
     state = {
         name: "",
         rank: ""
     }
-    
+
     handleChange = (event) =>{
         this.setState({[event.target.name]: event.target.value});
     }
 
-    submit = (e)=>{
-        e.preventDefault();
-        console.log(this.state);
-        const studentObject = {
-            name: this.state.name,
-            rank: this.state.rank
-          };
-          axios.post('http://localhost:4000/api/ninjas', studentObject)
-            .then(res => console.log(res.data));
-      
-          this.setState({ name: '', rank: ''});
-          this.props.history.push('/')
+    componentDidMount =()=>{
+        const id = this.props.match.params.id;
+        // console.log(id);
+        axios.put(`http://localhost:4000/api/ninjas/${id}`)
+        .then(res=>{
+            this.setState({
+                name: res.data.name,
+                rank: res.data.rank
+            })
+        })
     }
-       
-        render() {
+
+    render() {
+        // const id = this.props.match.params.id;
+        // console.log(id);
         return (
             <div className="container">
-                <h1 className="my-3">Create Ninja</h1>
+                <h1 className="my-3">Edit Ninja</h1>
                 <form>
                     <div className="form-group">
                         <label>Name</label>
@@ -39,6 +38,7 @@ export class CreateNinja extends Component {
                         name="name"
                         className="form-control" 
                         id="exampleInputEmail1" 
+                        value={this.state.name}
                         placeholder="Enter your Name here.." />
                     </div>
 
@@ -49,17 +49,18 @@ export class CreateNinja extends Component {
                         onChange={this.handleChange}
                         className="form-control" 
                         name="rank" 
+                        value={this.state.rank}
                         placeholder="Enter your Rank here.." />
                     </div>
 
                     <button
                     className="btn btn-primary"
                     onClick={this.submit}
-                    >Create Ninja</button>
+                    >Edit Ninja</button>
                     </form>
             </div>
         )
     }
 }
 
-export default CreateNinja
+export default EditNinja;

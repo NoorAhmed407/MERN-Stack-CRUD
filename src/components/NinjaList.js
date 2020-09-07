@@ -52,7 +52,9 @@ export class NinjaList extends Component {
                             <td>{ninja.name}</td>
                             <td>{ninja.rank}</td>
                             <td>
-                              <button className="btn btn-small btn-primary m-1">Edit</button>
+                              <Link 
+                              to={`/editninja/${ninja._id}`}
+                              className="btn btn-small btn-primary m-1">Edit</Link>
                               <button className="btn btn-small btn-danger m-1">Delete</button>
                             </td>
                           </tr>

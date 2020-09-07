@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 export class EditNinja extends Component {
     state = {
@@ -20,6 +21,7 @@ export class EditNinja extends Component {
                 name: res.data.name,
                 rank: res.data.rank
             });
+            this.props.history.push('/');
         
         });
     }
@@ -42,7 +44,6 @@ export class EditNinja extends Component {
                 name: '',
                 rank: ''
             });
-            this.props.history.push('/');
         });
     }
     render() {

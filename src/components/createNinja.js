@@ -21,8 +21,9 @@ export class CreateNinja extends Component {
           };
           axios.post('http://localhost:4000/api/ninjas', studentObject)
             .then(res => console.log(res.data));
-      
           this.setState({ name: '', rank: ''});
+            console.log('NinjaList123')
+
           this.props.history.push('/')
     }
        
